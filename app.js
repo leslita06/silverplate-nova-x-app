@@ -42,7 +42,7 @@ function setLive(on,T){
  S.live=on; if(T!==undefined)S.T=T;
  body.classList.toggle('is-live',on); app.classList.toggle('is-live',on);
  $('#pre').hidden=on; $('#live').hidden=!on;
- $('#h-eyebrow').textContent=on?'En direct du Sofitel Abidjan Hôtel Ivoire':'NOVA Électronique vous invite';
+ $('#h-eyebrow').textContent=on?'En direct du Sofitel Ivoire':'NOVA Électronique vous invite';
  var b=$('#desk-live'); b.classList.toggle('on',on); $('span',b).textContent=on?'Revenir au compte à rebours':'Simuler le direct';
  clearInterval(timer);
  if(on){timer=setInterval(function(){S.T+=1/ (S.speed);render()},1000/1);}
