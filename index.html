@@ -79,7 +79,15 @@ h2{font-family:'Roboto Slab',serif;font-size:22px;margin:10px 0 14px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .ph{aspect-ratio:1;border-radius:14px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:8px;font-size:12px}
 .ph span{background:rgba(0,0,0,.45);padding:3px 8px;border-radius:8px}
-.demo{text-align:center;color:var(--muted);font-size:12px;margin-top:14px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.quick button{background:var(--card);border:1px solid #23284a;border-radius:16px;color:var(--txt);padding:14px 6px;font:500 12px Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.quick svg{width:24px;height:24px;stroke:var(--or);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+textarea.q{width:100%;min-height:76px;border-radius:12px;border:1px solid #2e3466;background:#10132a;color:var(--txt);padding:12px;font:400 15px Roboto,sans-serif;resize:none}
+.qq{border-top:1px solid #23284a;padding:10px 0;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.qq p{font-size:14px;line-height:1.4}.qq .small{margin-top:3px}
+.like{background:none;border:1px solid #3a4078;color:var(--txt);border-radius:10px;padding:6px 9px;font-size:12px;cursor:pointer;white-space:nowrap}
+.like.on{border-color:var(--or);color:var(--or)}
+.ph{background-size:cover;background-position:center}
 nav{position:absolute;bottom:0;left:0;right:0;display:flex;background:rgba(11,13,23,.96);border-top:1px solid #23284a;padding:8px 4px 16px;backdrop-filter:blur(8px)}
 nav button{flex:1;background:none;border:0;color:var(--muted);font:500 10px Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
 nav button svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -109,13 +117,19 @@ nav button.on{color:var(--or)}
      <span class="tag">Prochain temps fort</span>
      <div class="row" style="margin-top:6px"><div><div style="font-family:'Roboto Slab',serif;font-size:18px">20 h · Révélation du NOVA X</div><div class="small">Grande scène · 300 invités</div></div></div>
     </div>
+    <div class="quick">
+     <button onclick="go('plan')"><svg viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/></svg>Ma table : 12</button>
+     <button onclick="go('live');setTimeout(function(){document.getElementById('qtxt').focus()},350)"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v4"/></svg>Question au micro</button>
+     <button onclick="go('live')"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Voter</button>
+    </div>
     <button class="btn" onclick="go('billet')">Mon billet</button>
     <button class="btn ghost" onclick="go('programme')">Voir le programme</button>
+    <a class="btn ghost" style="text-align:center;text-decoration:none;margin-top:10px" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sofitel+Abidjan+H%C3%B4tel+Ivoire">Itinéraire vers le Sofitel</a>
    </section>
 
    <section id="programme">
     <h2>Programme</h2>
-    <p class="small" style="margin-bottom:14px">Vue jour J simulée à 20 h 10.</p>
+    <p class="small" style="margin-bottom:14px">Le temps fort en cours est surligné. Touchez « Rappel » pour être prévenu 10 min avant.</p>
     <div class="prog" id="prog"></div>
    </section>
 
@@ -142,8 +156,8 @@ nav button.on{color:var(--or)}
     <svg id="map" viewBox="0 0 360 400" font-family="Roboto" font-size="11" text-anchor="middle">
      <rect x="2" y="2" width="356" height="396" rx="14" fill="#10132a" stroke="#2e3466"/>
      <g class="zone" data-z="scene"><rect x="90" y="16" width="180" height="56" rx="10" fill="#E8892B"/><text x="180" y="49" fill="#16110a" font-weight="700" font-size="14">SCÈNE</text></g>
-     <g class="zone" data-z="demo1"><rect x="16" y="100" width="70" height="110" rx="10" fill="#3b4590"/><text x="51" y="160" fill="#fff">Démo 1</text></g>
-     <g class="zone" data-z="demo2"><rect x="274" y="100" width="70" height="110" rx="10" fill="#3b4590"/><text x="309" y="160" fill="#fff">Démo 2</text></g>
+     <g class="zone" data-z="demo1"><rect x="16" y="100" width="70" height="110" rx="10" fill="#3b4590"/><text x="51" y="156" fill="#fff">Essai</text><text x="51" y="170" fill="#fff">1</text></g>
+     <g class="zone" data-z="demo2"><rect x="274" y="100" width="70" height="110" rx="10" fill="#3b4590"/><text x="309" y="156" fill="#fff">Essai</text><text x="309" y="170" fill="#fff">2</text></g>
      <g class="zone" data-z="tables" id="tables"></g>
      <g class="zone" data-z="bar"><rect x="16" y="300" width="120" height="44" rx="10" fill="#7a4a9e"/><text x="76" y="326" fill="#fff">Bar</text></g>
      <g class="zone" data-z="photo"><rect x="224" y="300" width="120" height="44" rx="10" fill="#2a8a7a"/><text x="284" y="326" fill="#fff">Photocall</text></g>
@@ -161,18 +175,25 @@ nav button.on{color:var(--or)}
      <div id="poll"></div>
      <div class="small" id="votes"></div>
     </div>
+    <div class="card" id="questions">
+     <span class="tag">Une question pour la scène</span>
+     <p class="small" style="margin:6px 0 10px">Le modérateur lit les questions les plus soutenues au micro pendant la keynote.</p>
+     <textarea class="q" id="qtxt" maxlength="200" placeholder="Votre question, en une phrase"></textarea>
+     <button class="btn" id="qsend">Envoyer au modérateur</button>
+     <div id="qlist" style="margin-top:12px"></div>
+    </div>
     <div class="card">
      <span class="tag">Quiz NOVA X</span>
      <div id="quiz" style="margin-top:8px"></div>
     </div>
-    <p class="demo">Démonstration : aucune donnée n'est enregistrée.</p>
    </section>
 
    <section id="photos">
     <h2>Mur photo</h2>
     <div class="grid" id="grid"></div>
-    <button class="btn" style="margin-top:14px" onclick="toast('Photo partagée sur le mur (simulation)')">Partager ma photo</button>
-    <p class="demo">Démonstration : aucune donnée n'est enregistrée.</p>
+    <input type="file" id="pfile" accept="image/*" hidden>
+    <button class="btn" style="margin-top:14px" onclick="document.getElementById('pfile').click()">Partager ma photo</button>
+    <p class="small" style="text-align:center;margin-top:10px">Vos photos s'affichent aussi sur l'écran du photocall.</p>
    </section>
   </main>
   <nav id="nav"></nav>
@@ -198,7 +219,7 @@ var T=new Date('2027-02-11T19:00:00Z').getTime();
 function tick(){var d=Math.max(0,T-Date.now())/1000;cj.textContent=Math.floor(d/86400);ch.textContent=Math.floor(d%86400/3600);cm.textContent=Math.floor(d%3600/60);cs.textContent=Math.floor(d%60)}
 tick();setInterval(tick,1000);
 // programme
-var P=[['19 h','Accueil et cocktail','Hall et bar · musique live'],['20 h','Révélation du NOVA X','Grande scène · keynote NOVA Électronique'],['20 h 30','Démonstrations','Zones Démo 1 et 2 · prise en main'],['21 h 30','Dîner et DJ','Tables numérotées · DJ set'],['23 h','Fin de soirée','Vestiaire et navettes']];
+var P=[['19 h','Accueil et cocktail','Hall et bar · musique live'],['20 h','Révélation du NOVA X','Grande scène · keynote NOVA Électronique'],['20 h 30','Prise en main','Espaces d\'essai 1 et 2 · testez le NOVA X'],['21 h 30','Dîner et DJ','Tables numérotées · DJ set'],['23 h','Fin de soirée','Vestiaire et navettes']];
 var prog=document.getElementById('prog');
 P.forEach(function(x,i){var now=i==1;var d=document.createElement('div');d.className='it'+(now?' now':'');d.innerHTML='<div class="card"><div class="row"><div><div class="h">'+x[0]+(now?' · <span style="font-family:Roboto;font-size:11px;font-weight:700;letter-spacing:1px">EN COURS</span>':'')+'</div><div class="t">'+x[1]+'</div><div class="small">'+x[2]+'</div></div><button class="rm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg>Rappel</button></div></div>';
 d.querySelector('.rm').onclick=function(){this.classList.toggle('set');toast(this.classList.contains('set')?'Rappel activé 10 min avant ('+x[0]+')':'Rappel retiré')};prog.appendChild(d)});
@@ -213,7 +234,7 @@ box.innerHTML=s+f(0,0)+f(n-7,0)+f(0,n-7)+'</svg>'})();
 var tg=document.getElementById('tables'),ts='',k=1;
 for(var r=0;r<3;r++)for(var c=0;c<5;c++){var cx=118+c*31,cy=110+r*55,me=k==12;ts+='<circle cx="'+cx+'" cy="'+cy+'" r="13" fill="'+(me?'#E8892B':'#262C51')+'" stroke="#4a5296"/><text x="'+cx+'" y="'+(cy+4)+'" fill="'+(me?'#16110a':'#cfd3ef')+'" font-size="10" font-weight="700">'+k+'</text>';k++}
 tg.innerHTML=ts;
-var Z={scene:['Scène','Révélation du NOVA X à 20 h. Espace presse réservé au premier rang, côté gauche.'],demo1:['Zone démo 1','Photo et vidéo : testez le capteur du NOVA X. Ouverte dès 20 h 30.'],demo2:['Zone démo 2','Autonomie et charge rapide. Hôtesses NOVA sur place.'],tables:['Tables 1 à 15','Dîner à 21 h 30. Votre place : table 12, troisième rangée.'],bar:['Bar','Cocktails et softs dès 19 h, toute la soirée.'],photo:['Photocall','Mur NOVA X : vos photos arrivent sur le Mur photo de l\'appli.'],vest:['Vestiaire','Ouvert de 18 h 45 à 23 h 30. Ticket remis à l\'accueil.'],entree:['Entrée','Accueil et contrôle des billets à partir de 18 h 45.']};
+var Z={scene:['Scène','Révélation du NOVA X à 20 h. Espace presse réservé au premier rang, côté gauche.'],demo1:['Espace d\'essai 1','Photo et vidéo : testez le capteur du NOVA X. Ouverte dès 20 h 30.'],demo2:['Espace d\'essai 2','Autonomie et charge rapide. Hôtesses NOVA sur place.'],tables:['Tables 1 à 15','Dîner à 21 h 30. Votre place : table 12, troisième rangée.'],bar:['Bar','Cocktails et softs dès 19 h, toute la soirée.'],photo:['Photocall','Mur NOVA X : vos photos arrivent sur le Mur photo de l\'appli.'],vest:['Vestiaire','Ouvert de 18 h 45 à 23 h 30. Ticket remis à l\'accueil.'],entree:['Entrée','Accueil et contrôle des billets à partir de 18 h 45.']};
 document.querySelectorAll('.zone').forEach(function(g){g.onclick=function(){document.querySelectorAll('.zone').forEach(function(x){x.classList.remove('sel')});g.classList.add('sel');var z=Z[g.dataset.z];zinfo.innerHTML='<span class="tag">'+z[0]+'</span><p style="margin-top:6px;line-height:1.45">'+z[1]+'</p>'}});
 // sondage
 var C=[['Noir sidéral','#111'],['Or Abidjan','#E8892B'],['Bleu lagune','#2f6fd6'],['Blanc perle','#eee']],V=[84,121,67,39],mine=-1;
@@ -229,7 +250,15 @@ el.querySelectorAll('.qopt').forEach(function(b){b.onclick=function(){var i=+b.d
 quiz();
 // photos
 var G=[['linear-gradient(135deg,#E8892B,#7a2f8f)','Révélation'],['linear-gradient(160deg,#262C51,#2f6fd6)','Photocall'],['radial-gradient(circle at 30% 30%,#ffd28a,#b4521a)','Cocktail'],['linear-gradient(200deg,#0f5e57,#262C51)','Démo 1'],['linear-gradient(45deg,#3b1d5e,#E8892B)','DJ set'],['radial-gradient(circle at 70% 40%,#5d7dff,#0B0D17)','Scène'],['linear-gradient(120deg,#b4521a,#262C51)','Table 12'],['linear-gradient(160deg,#2a8a7a,#E8892B)','Équipe NOVA']];
-grid.innerHTML=G.map(function(g){return'<div class="ph" style="background:'+g[0]+'"><span>'+g[1]+'</span></div>'}).join('');
+var G2=[['scene','Révélation'],['photocall','Photocall'],['entree','Accueil'],['tables','Dîner'],['ecran','Grande scène'],['ensemble','La salle']];
+grid.innerHTML=G2.map(function(g){return'<div class="ph" style="background-image:url(img/'+g[0]+'.jpg)"><span>'+g[1]+'</span></div>'}).join('');
+document.getElementById('pfile').onchange=function(){var f=this.files[0];if(!f)return;var u=URL.createObjectURL(f);var d=document.createElement('div');d.className='ph';d.style.backgroundImage='url('+u+')';d.innerHTML='<span>Ma photo</span>';grid.insertBefore(d,grid.firstChild);toast('Photo ajoutée au mur');this.value=''};
+// questions au micro
+var QS=[['Quelle autonomie réelle en vidéo 4K ?',23],['Le NOVA X sera-t-il disponible en Côte d\'Ivoire dès le lancement ?',17]],liked={};
+function qdraw(){QS.sort(function(a,b){return b[1]-a[1]});qlist.innerHTML='<div class="small" style="margin-bottom:4px">Questions de la salle</div>'+QS.map(function(q,i){return'<div class="qq"><div><p>'+q[0].replace(/</g,'&lt;')+'</p>'+(q[2]?'<div class="small" style="color:var(--or)">Votre question · transmise au modérateur</div>':'')+'</div><button class="like'+(liked[q[0]]?' on':'')+'" data-i="'+i+'">▲ '+q[1]+'</button></div>'}).join('');
+qlist.querySelectorAll('.like').forEach(function(b){b.onclick=function(){var q=QS[+b.dataset.i];if(liked[q[0]])return;liked[q[0]]=1;q[1]++;qdraw()}})}
+qdraw();
+qsend.onclick=function(){var t=qtxt.value.trim();if(t.length<5){toast('Écrivez votre question');qtxt.focus();return}QS.push([t,1,true]);liked[t]=1;qtxt.value='';qdraw();toast('Question envoyée au modérateur')};
 if('serviceWorker'in navigator){}
 </script>
 </body>
