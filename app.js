@@ -11,7 +11,7 @@ var COL={'Distributeur':'#E8892B','Partenaire':'#6F8CFF','Presse':'#3DDC97','Inf
 function avStyle(p){var c=COL[p]||'#888';return 'background:'+c+'22;color:'+c+';border:1.5px solid '+c+'66'}
 function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem('nx3-'+k));localStorage.setItem('nx3-'+k,JSON.stringify(v))}catch(e){return null}}
 
-/* ---------- invité de démonstration ---------- */
+/* ---------- invité type ---------- */
 var ME={c:'NOVAX-2027-AK-290245',n:'Mme Aya Koné',p:'Distributeur',t:12};
 var G=(window.NX_INVITES||[]).map(function(x){return {c:x[0],n:x[1],p:x[2],t:x[3],vip:!!x[4]}});
 G.unshift({c:ME.c,n:ME.n,p:ME.p,t:ME.t,me:true});
@@ -54,7 +54,7 @@ function render(){
  $('#st-time').textContent=tt; $('#live-clock').textContent=hm(T); $('#rg-clock').textContent=S.live?hm(T):'avant';
  if(S.live){
   var i=Math.max(0,idxAt(T)), c=P[i], n=P[i+1];
-  $('#now-t').textContent=c[1]; $('#now-d').textContent=c[3]+' · '+c[2];
+  $('#now-t').textContent=c[1]; $('#now-d').textContent=c[3]+' : '+c[2];
   var end=n?n[0]:c[0]+c[5]; $('#now-bar').style.width=Math.min(100,(T-c[0])/(end-c[0])*100)+'%';
   $('#next-h').textContent=n?hFr(n[0]):'23 h 30'; $('#next-t').textContent=n?n[1]:'Bon retour';
   $('#k-seq').textContent=c[1]; $('#k-seq-n').textContent=n?'Ensuite à '+hFr(n[0])+' : '+n[1].toLowerCase():'Dernière séquence';
@@ -105,9 +105,9 @@ window.addEventListener('resize',function(){go(cur)});
 function qr(el,txt,size,dark){el.innerHTML='';if(window.QRCode)new QRCode(el,{text:txt,width:size,height:size,colorDark:dark||'#0B0D17',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}
 qr($('#qr-big'),ME.c,392); qr($('#qr-peek'),ME.c,132);
 $('#av-ini').textContent=ini(ME.n);
-var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//SN Silverplate Services//NOVA X//FR','BEGIN:VEVENT','UID:'+ME.c+'@novax','DTSTAMP:20270101T000000Z','DTSTART:20270211T190000Z','DTEND:20270211T233000Z','SUMMARY:NOVA X · Soirée de lancement','LOCATION:Sofitel Abidjan Hôtel Ivoire\\, boulevard Hassan II\\, Cocody\\, Abidjan','DESCRIPTION:Billet '+ME.c+'. Table '+ME.t+'.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//SN Silverplate Services//NOVA X//FR','BEGIN:VEVENT','UID:'+ME.c+'@novax','DTSTAMP:20270101T000000Z','DTSTART:20270211T190000Z','DTEND:20270211T233000Z','SUMMARY:NOVA X, soirée de lancement','LOCATION:Sofitel Abidjan Hôtel Ivoire\\, boulevard Hassan II\\, Cocody\\, Abidjan','DESCRIPTION:Billet '+ME.c+'. Table '+ME.t+'.','END:VEVENT','END:VCALENDAR'].join('\r\n');
 $('#b-ics').href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics);
-$('#b-wa').href='https://wa.me/?text='+encodeURIComponent('NOVA X · Soirée de lancement\nJeudi 11 février 2027, 19 h, Sofitel Abidjan Hôtel Ivoire\nTable '+ME.t+'\nMon billet : '+ME.c);
+$('#b-wa').href='https://wa.me/?text='+encodeURIComponent('NOVA X, soirée de lancement\nJeudi 11 février 2027, 19 h, Sofitel Abidjan Hôtel Ivoire\nTable '+ME.t+'\nMon billet : '+ME.c);
 function markMeIn(){ $('#pass').classList.add('used'); $('#pass-state').innerHTML='<i class="ok"></i>Entrée validée. Bonne soirée !'; }
 
 /* ---------- table et plan ---------- */
@@ -126,8 +126,8 @@ function drawPlan(){
  s+='<rect x="70" y="8" width="220" height="10" rx="3" fill="#E8892B"/><text x="180" y="13.5" fill="#160c02" font-size="6" font-weight="800" text-anchor="middle" dominant-baseline="central" font-family="Montserrat" letter-spacing="1">ÉCRAN GÉANT</text>';
  s+='<rect x="90" y="22" width="180" height="34" rx="6" fill="#1f2450" stroke="rgba(232,137,43,.6)"/><text x="180" y="39" fill="#fff" font-size="10" font-weight="700" text-anchor="middle" dominant-baseline="central" font-family="Montserrat" letter-spacing="2">SCÈNE</text>';
  s+='<path d="M90 56 L50 110 L310 110 L270 56Z" fill="url(#stg)" opacity=".35"/>';
- s+='<rect x="8" y="150" width="20" height="120" rx="4" fill="#2a3a5c"/><text x="18" y="210" fill="#b8c2e6" font-size="7" font-weight="700" text-anchor="middle" transform="rotate(-90 18 210)" font-family="Montserrat" letter-spacing="1">STANDS DÉMO</text>';
- s+='<rect x="332" y="150" width="20" height="120" rx="4" fill="#2a3a5c"/><text x="342" y="210" fill="#b8c2e6" font-size="7" font-weight="700" text-anchor="middle" transform="rotate(90 342 210)" font-family="Montserrat" letter-spacing="1">STANDS DÉMO</text>';
+ s+='<rect x="8" y="150" width="20" height="120" rx="4" fill="#2a3a5c"/><text x="18" y="210" fill="#b8c2e6" font-size="7" font-weight="700" text-anchor="middle" transform="rotate(-90 18 210)" font-family="Montserrat" letter-spacing="1">DÉMONSTRATIONS</text>';
+ s+='<rect x="332" y="150" width="20" height="120" rx="4" fill="#2a3a5c"/><text x="342" y="210" fill="#b8c2e6" font-size="7" font-weight="700" text-anchor="middle" transform="rotate(90 342 210)" font-family="Montserrat" letter-spacing="1">DÉMONSTRATIONS</text>';
  s+='<rect x="140" y="398" width="80" height="18" rx="4" fill="none" stroke="rgba(255,255,255,.3)" stroke-dasharray="3 3"/><text x="180" y="407" fill="#9ca1c0" font-size="7.5" font-weight="700" text-anchor="middle" dominant-baseline="central" font-family="Montserrat" letter-spacing="1.5">ENTRÉE</text>';
  var me=null;
  for(var n=1;n<=30;n++){
@@ -190,7 +190,7 @@ function stLab(s){return s==='pin'?'<span class="st pin">À l\'écran</span>':s=
 function drawQ(){
  var vis=Q.filter(function(q){return q.s!=='wait'&&q.s!=='no'||q.mine&&q.s==='wait'});
  vis.sort(qsort==='top'?function(a,b){return (b.s==='pin')-(a.s==='pin')||b.v-a.v}:function(a,b){return a.m-b.m});
- $('#qs').innerHTML=vis.map(function(q){return '<li class="qi'+(q.mine?' mine':'')+'"><button class="up'+(upd[q.id]?' on':'')+'" data-id="'+q.id+'" '+(q.s==='wait'?'disabled':'')+'><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>'+q.v+'</button><div><p>'+esc(q.t)+'</p><small>'+stLab(q.s)+esc(q.a)+' · il y a '+(q.m<1?'quelques secondes':q.m+' min')+'</small></div></li>'}).join('');
+ $('#qs').innerHTML=vis.map(function(q){return '<li class="qi'+(q.mine?' mine':'')+'"><button class="up'+(upd[q.id]?' on':'')+'" data-id="'+q.id+'" '+(q.s==='wait'?'disabled':'')+'><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>'+q.v+'</button><div><p>'+esc(q.t)+'</p><small>'+stLab(q.s)+esc(q.a)+', il y a '+(q.m<1?'quelques secondes':q.m+' min')+'</small></div></li>'}).join('');
  $$('#qs .up').forEach(function(b){b.onclick=function(){var q=Q.filter(function(x){return x.id==b.dataset.id})[0];if(!q)return;upd[q.id]=!upd[q.id];q.v+=upd[q.id]?1:-1;saveQ();drawQ()}});
  $('#q-count').textContent=Q.filter(function(q){return q.s!=='wait'&&q.s!=='no'}).length;
  drawMod();
@@ -209,7 +209,7 @@ drawQ();
 var PH=[['gala-salle','tall','Mme Grâce Aka',48],['scene-lumiere','sq','M. Ibrahim Gnagne',61],['invites','tall','Mme Inès Soro',27],['tables','sq','Équipe NOVA',33],['public','sq','M. Junior Konan',19],['scene-feux','tall','Mme Affoué Séka',42],['cocktail','sq','M. Patrick Gnagne',15],['salle-rouge','tall','Mme Laetitia Diabaté',22],['diner','sq','M. Eric Kouadio',11],['revelation','sq','NOVA Électronique',87]];
 var likes=store('likes')||{};
 function drawWall(extra){
- var h=(extra||[]).map(function(src){return '<figure class="ph new"><img src="'+src+'" alt="Votre photo"><span class="who">Vous · en validation</span></figure>'}).join('');
+ var h=(extra||[]).map(function(src){return '<figure class="ph new"><img src="'+src+'" alt="Votre photo"><span class="who">Vous, en validation</span></figure>'}).join('');
  h+=PH.map(function(p,k){var on=likes[p[0]];return '<figure class="ph '+p[1]+'" style="animation-delay:'+(k*.05)+'s"><img src="img/'+p[0]+'.jpg" alt="Photo de soirée" loading="lazy"><span class="who">'+p[2]+'</span><button class="lk'+(on?' on':'')+'" data-k="'+p[0]+'"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg>'+(p[3]+(on?1:0))+'</button></figure>'}).join('');
  $('#wall').innerHTML=h;
  $$('#wall .lk').forEach(function(b){b.onclick=function(){likes[b.dataset.k]=!likes[b.dataset.k];store('likes',likes);drawWall(mine)}});
@@ -253,7 +253,7 @@ function arrivals(){
  $('#by-prof').innerHTML=Object.keys(tot).sort(function(a,b){return tot[b]-tot[a]}).map(function(p){var v=got[p]||0;return '<li><div class="bl"><span>'+prof(p)+'</span><b>'+v+' / '+tot[p]+'</b></div><div class="bt"><i style="width:'+(v/tot[p]*100)+'%;background:'+COL[p]+'"></i></div></li>'}).join('');
  // flux
  var last=inn.slice().sort(function(a,b){return arrivedAt(b)-arrivedAt(a)}).slice(0,7);
- $('#feed').innerHTML=last.length?last.map(function(g){return '<li class="'+(g.vip?'vip':'')+'"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><div><b>'+g.n+'</b><span>'+prof(g.p)+' · table '+g.t+(g.vip?' · officiel':'')+'</span></div><time>'+hm(arrivedAt(g))+'</time></li>'}).join(''):'<li class="empty">Les portes ouvrent à 19 h.</li>';
+ $('#feed').innerHTML=last.length?last.map(function(g){return '<li class="'+(g.vip?'vip':'')+'"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><div><b>'+g.n+'</b><span>'+prof(g.p)+', table '+g.t+(g.vip?', officiel':'')+'</span></div><time>'+hm(arrivedAt(g))+'</time></li>'}).join(''):'<li class="empty">Les portes ouvrent à 19 h.</li>';
  // courbe
  var pts=[],mx=300;for(var m=0;m<=95;m+=5){var t=19*60+m;if(t>T)break;var c=G.filter(function(g){var a=arrivedAt(g);return a!=null&&a<=t}).length+Math.round(BASE*Math.min(1,m/80)*.9);pts.push([m/95*600,150-c/mx*140])}
  if(pts.length<2)pts=[[0,150],[1,150]];
@@ -283,7 +283,7 @@ var INC=store('inc')||[['File d\'attente au comptoir : 14 personnes','Accueil',3
 function drawInc(){
  var open=INC.filter(function(i){return !i[4]});
  $('#k-inc').textContent=open.length; $('#k-inc-p').textContent=open.length?(open.filter(function(i){return i[2]===3}).length+' urgent'+(open.filter(function(i){return i[2]===3}).length>1?'s':'')):'aucun en cours';
- $('#incs').innerHTML=INC.slice().sort(function(a,b){return a[4]-b[4]||b[2]-a[2]}).map(function(i){var k=INC.indexOf(i);return '<li class="ic'+(i[4]?' done':'')+'"><span class="sev s'+i[2]+'"></span><p>'+esc(i[0])+'<small>'+i[1]+' · signalé à '+i[3]+'</small></p>'+(i[4]?'<span class="rg-sub">Réglé</span>':'<button data-k="'+k+'">Marquer réglé</button>')+'</li>'}).join('');
+ $('#incs').innerHTML=INC.slice().sort(function(a,b){return a[4]-b[4]||b[2]-a[2]}).map(function(i){var k=INC.indexOf(i);return '<li class="ic'+(i[4]?' done':'')+'"><span class="sev s'+i[2]+'"></span><p>'+esc(i[0])+'<small>'+i[1]+', signalé à '+i[3]+'</small></p>'+(i[4]?'<span class="rg-sub">Réglé</span>':'<button data-k="'+k+'">Marquer réglé</button>')+'</li>'}).join('');
  $$('#incs button').forEach(function(b){b.onclick=function(){INC[+b.dataset.k][4]=1;store('inc',INC);drawInc()}});
 }
 drawInc();
