@@ -252,8 +252,9 @@ function arrivals(){
  var tot={},got={};G.forEach(function(g){tot[g.p]=(tot[g.p]||0)+1});inn.forEach(function(g){got[g.p]=(got[g.p]||0)+1});
  $('#by-prof').innerHTML=Object.keys(tot).sort(function(a,b){return tot[b]-tot[a]}).map(function(p){var v=got[p]||0;return '<li><div class="bl"><span>'+prof(p)+'</span><b>'+v+' / '+tot[p]+'</b></div><div class="bt"><i style="width:'+(v/tot[p]*100)+'%;background:'+COL[p]+'"></i></div></li>'}).join('');
  // flux
+ function setH(el,h){if(el._h!==h){el._h=h;el.innerHTML=h}}
  var last=inn.slice().sort(function(a,b){return arrivedAt(b)-arrivedAt(a)}).slice(0,7);
- $('#feed').innerHTML=last.length?last.map(function(g){return '<li class="'+(g.vip?'vip':'')+'"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><div><b>'+g.n+'</b><span>'+prof(g.p)+', table '+g.t+(g.vip?', officiel':'')+'</span></div><time>'+hm(arrivedAt(g))+'</time></li>'}).join(''):'<li class="empty">Les portes ouvrent à 19 h.</li>';
+ setH($('#feed'),(typeof FERR!=='undefined'?FERR.join(''):'')+(last.length?last.map(function(g){return '<li class="'+(g.vip?'vip':'')+'"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><div><b>'+g.n+'</b><span>'+prof(g.p)+', table '+g.t+(g.vip?', officiel':'')+'</span></div><time>'+hm(arrivedAt(g))+'</time></li>'}).join(''):'<li class="empty">Les portes ouvrent à 19 h.</li>'));
  // courbe
  var pts=[],mx=300;for(var m=0;m<=95;m+=5){var t=19*60+m;if(t>T)break;var c=G.filter(function(g){var a=arrivedAt(g);return a!=null&&a<=t}).length+Math.round(BASE*Math.min(1,m/80)*.9);pts.push([m/95*600,150-c/mx*140])}
  if(pts.length<2)pts=[[0,150],[1,150]];
@@ -268,13 +269,14 @@ $('#scan').onsubmit=function(e){e.preventDefault();var v=$('#scan-in').value.tri
  else if(arrivedAt(g)!=null&&arrivedAt(g)<=S.T){feedMsg(g.n+' est déjà entré(e) à '+hm(arrivedAt(g)),'Billet déjà utilisé')}
  else{manual[g.c]=Math.floor(S.T);arrivals();toast('Entrée validée',g.n+', table '+g.t)}
  $('#scan-in').value='';};
-function feedMsg(t,s){$('#feed').insertAdjacentHTML('afterbegin','<li class="ko"><i style="background:#FF5D5D22;color:#FF5D5D">!</i><div><b>'+t+'</b><span>'+s+'</span></div><time>'+hm(S.T)+'</time></li>')}
+var FERR=[];function feedMsg(t,s){FERR.unshift('<li class="ko"><i style="background:#FF5D5D22;color:#FF5D5D">!</i><div><b>'+t+'</b><span>'+s+'</span></div><time>'+hm(S.T)+'</time></li>');FERR=FERR.slice(0,2);arrivals()}
 
 /* ---------- régie : modération ---------- */
 function drawMod(){
  var w=Q.filter(function(q){return q.s==='wait'});
  $('#k-mod').textContent=w.length; $('#k-qt').textContent=Q.length;
- $('#modq').innerHTML=w.length?w.map(function(q){return '<li class="mq"><div style="flex:1"><p>'+esc(q.t)+'</p><small>'+esc(q.a)+'</small></div><div class="acts"><button class="y" title="Valider" data-a="ok" data-id="'+q.id+'"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><button class="p" title="Mettre à l\'écran" data-a="pin" data-id="'+q.id+'"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button><button class="n" title="Écarter" data-a="no" data-id="'+q.id+'"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></li>'}).join(''):'<li class="empty">Aucune question en attente. Les nouvelles arrivent ici.</li>';
+ var mh=w.length?w.map(function(q){return '<li class="mq"><div style="flex:1"><p>'+esc(q.t)+'</p><small>'+esc(q.a)+'</small></div><div class="acts"><button class="y" title="Valider" data-a="ok" data-id="'+q.id+'"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></button><button class="p" title="Mettre à l\'écran" data-a="pin" data-id="'+q.id+'"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button><button class="n" title="Écarter" data-a="no" data-id="'+q.id+'"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></li>'}).join(''):'<li class="empty">Aucune question en attente. Les nouvelles arrivent ici.</li>';
+ var mq=$('#modq'); if(mq._h===mh)return; mq._h=mh; mq.innerHTML=mh;
  $$('#modq button').forEach(function(b){b.onclick=function(){var q=Q.filter(function(x){return x.id==b.dataset.id})[0];if(b.dataset.a==='pin')Q.forEach(function(x){if(x.s==='pin')x.s='ok'});q.s=b.dataset.a;saveQ();drawQ()}});
 }
 
