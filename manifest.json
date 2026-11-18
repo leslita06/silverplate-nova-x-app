@@ -1,15 +1,1 @@
-{
- "name": "NOVA X Live",
- "short_name": "NOVA X",
- "start_url": "./",
- "display": "standalone",
- "background_color": "#0B0D17",
- "theme_color": "#0B0D17",
- "icons": [
-  {
-   "src": "logo.png",
-   "sizes": "98x115",
-   "type": "image/png"
-  }
- ]
-}
+{"name":"NOVA X Live","short_name":"NOVA X","start_url":"./","display":"standalone","background_color":"#07080F","theme_color":"#07080F","icons":[{"src":"img/favicon.png","sizes":"64x64","type":"image/png"}]}

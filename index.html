@@ -3,263 +3,328 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>NOVA X Live · SN Silverplate Services</title>
-<meta name="theme-color" content="#0B0D17">
+<title>NOVA X Live · La soirée de lancement dans votre poche</title>
+<meta name="description" content="L'application de la soirée de lancement NOVA X : billet, table, programme en direct, vote, questions, photos et accès. Jeudi 11 février 2027, Sofitel Abidjan Hôtel Ivoire.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07080F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-<style>
-:root{--bg:#0B0D17;--nuit:#262C51;--or:#E8892B;--txt:#F2F3F8;--muted:#9AA0BF;--card:#151935}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--txt);font-family:Roboto,Arial,sans-serif}
-body{min-height:100vh}
-.stage{min-height:100vh;display:flex;align-items:center;justify-content:center;gap:64px}
-.pitch{display:none;max-width:340px}
-.pitch img{width:64px;margin-bottom:22px}
-.pitch h1{font-family:'Roboto Slab',serif;font-size:34px;line-height:1.2;margin-bottom:14px}
-.pitch h1 span{color:var(--or)}
-.pitch p{color:var(--muted);font-size:16px;line-height:1.5}
-.phone{width:100%;max-width:430px;height:100vh;position:relative;background:var(--bg);overflow:hidden;display:flex;flex-direction:column}
-@media(min-width:900px){
- .pitch{display:block}
- .phone{width:390px;height:820px;border-radius:48px;border:12px solid #1d2035;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 2px #2c3150}
- .phone:before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:110px;height:28px;background:#000;border-radius:20px;z-index:5}
-}
-header{padding:46px 20px 12px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,var(--nuit),var(--bg))}
-header .brand{font-family:'Roboto Slab',serif;font-weight:700;font-size:20px;letter-spacing:.5px}
-header .brand span{color:var(--or)}
-header img{height:34px}
-main{flex:1;overflow-y:auto;padding:8px 18px 100px}
-section{display:none;animation:f .3s}
-section.on{display:block}
-@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
-h2{font-family:'Roboto Slab',serif;font-size:22px;margin:10px 0 14px}
-.card{background:var(--card);border:1px solid #23284a;border-radius:18px;padding:16px;margin-bottom:14px}
-.hero{background:radial-gradient(circle at 80% 10%,rgba(232,137,43,.35),transparent 55%),linear-gradient(135deg,var(--nuit),#121530);border:1px solid #33396a}
-.small{color:var(--muted);font-size:13px}
-.cd{display:flex;gap:8px;margin-top:14px}
-.cd div{flex:1;background:rgba(11,13,23,.6);border-radius:12px;padding:10px 0;text-align:center}
-.cd b{display:block;font-family:'Roboto Slab',serif;font-size:24px;color:var(--or)}
-.cd small{font-size:11px;color:var(--muted)}
-.btn{display:block;width:100%;border:0;border-radius:14px;padding:15px;font:700 16px Roboto,sans-serif;background:var(--or);color:#16110a;cursor:pointer;margin-top:6px}
-.btn.ghost{background:transparent;color:var(--or);border:1.5px solid var(--or)}
-.tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--or)}
-.prog{position:relative;padding-left:22px}
-.prog:before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:#2b3160}
-.it{position:relative;margin-bottom:12px}
-.it:before{content:"";position:absolute;left:-21px;top:20px;width:12px;height:12px;border-radius:50%;background:#2b3160;border:2px solid var(--bg)}
-.it.now:before{background:var(--or);box-shadow:0 0 0 5px rgba(232,137,43,.25)}
-.it.now .card{border-color:var(--or);background:linear-gradient(135deg,rgba(232,137,43,.18),var(--card))}
-.it .h{font-family:'Roboto Slab',serif;color:var(--or);font-size:15px}
-.it .t{font-weight:700;margin:3px 0}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.rm{background:none;border:1px solid #3a4078;color:var(--txt);border-radius:10px;padding:7px 10px;font-size:12px;cursor:pointer;display:flex;gap:5px;align-items:center}
-.rm.set{border-color:var(--or);color:var(--or)}
-.ticket{background:linear-gradient(160deg,var(--nuit),#141836);border-radius:22px;overflow:hidden;border:1px solid #363d70}
-.ticket .top{padding:18px;text-align:center}
-.qr{background:#fff;border-radius:16px;width:220px;height:220px;margin:14px auto;padding:12px;display:flex;align-items:center;justify-content:center}
-.qr svg,.qr img{width:100%;height:100%}
-.perf{border-top:2px dashed #3a4078;margin:0 14px}
-.ticket .info{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 18px}
-.ticket .info b{display:block;font-size:16px;margin-top:2px}
-#map{width:100%;height:auto;display:block}
-.zone{cursor:pointer;transition:.2s}
-.zone:hover,.zone.sel{filter:brightness(1.4)}
-.opt{margin-bottom:10px;cursor:pointer;border-radius:12px;background:#1b2042;padding:12px;position:relative;overflow:hidden;border:1px solid transparent}
-.opt.me{border-color:var(--or)}
-.opt .bar{position:absolute;left:0;top:0;bottom:0;background:rgba(232,137,43,.28);width:0;transition:width 1s ease}
-.opt .l{position:relative;display:flex;justify-content:space-between;align-items:center;font-weight:500}
-.dot{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:8px;vertical-align:-2px;border:1px solid #fff4}
-.qopt{display:block;width:100%;text-align:left;background:#1b2042;color:var(--txt);border:1px solid #2e3466;border-radius:12px;padding:12px;margin-bottom:8px;font:500 15px Roboto,sans-serif;cursor:pointer}
-.qopt.ok{border-color:#3ecf8e;background:rgba(62,207,142,.15)}
-.qopt.ko{border-color:#e05a5a;background:rgba(224,90,90,.15)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ph{aspect-ratio:1;border-radius:14px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:8px;font-size:12px}
-.ph span{background:rgba(0,0,0,.45);padding:3px 8px;border-radius:8px}
-.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
-.quick button{background:var(--card);border:1px solid #23284a;border-radius:16px;color:var(--txt);padding:14px 6px;font:500 12px Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-.quick svg{width:24px;height:24px;stroke:var(--or);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-textarea.q{width:100%;min-height:76px;border-radius:12px;border:1px solid #2e3466;background:#10132a;color:var(--txt);padding:12px;font:400 15px Roboto,sans-serif;resize:none}
-.qq{border-top:1px solid #23284a;padding:10px 0;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
-.qq p{font-size:14px;line-height:1.4}.qq .small{margin-top:3px}
-.like{background:none;border:1px solid #3a4078;color:var(--txt);border-radius:10px;padding:6px 9px;font-size:12px;cursor:pointer;white-space:nowrap}
-.like.on{border-color:var(--or);color:var(--or)}
-.ph{background-size:cover;background-position:center}
-nav{position:absolute;bottom:0;left:0;right:0;display:flex;background:rgba(11,13,23,.96);border-top:1px solid #23284a;padding:8px 4px 16px;backdrop-filter:blur(8px)}
-nav button{flex:1;background:none;border:0;color:var(--muted);font:500 10px Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
-nav button svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-nav button.on{color:var(--or)}
-.toast{position:absolute;left:50%;bottom:96px;transform:translateX(-50%) translateY(20px);background:var(--or);color:#16110a;font-weight:700;padding:11px 16px;border-radius:12px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;width:max-content;max-width:88%;text-align:center;z-index:9}
-.toast.v{opacity:1;transform:translateX(-50%)}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css?v=31">
 </head>
 <body>
-<div class="stage">
- <div class="pitch">
-  <img src="logo.png" alt="SN Silverplate Services">
-  <h1>L'appli de la soirée <span>NOVA X</span></h1>
-  <p>Proposée par SN Silverplate Services : programme, billet, plan de salle, sondages en direct et mur photo, dans la poche de chaque invité.</p>
- </div>
- <div class="phone">
-  <header><div class="brand">NOVA <span>X</span> Live</div><img src="logo.png" alt="Silverplate"></header>
-  <main>
-   <section id="accueil">
-    <div class="card hero">
-     <span class="tag">Soirée de lancement</span>
-     <h2 style="margin:8px 0 4px">Bonjour Awa</h2>
-     <p class="small">Jeudi 11 février 2027 · 19 h<br>Sofitel Abidjan Hôtel Ivoire</p>
-     <div class="cd"><div><b id="cj">0</b><small>jours</small></div><div><b id="ch">0</b><small>heures</small></div><div><b id="cm">0</b><small>min</small></div><div><b id="cs">0</b><small>sec</small></div></div>
-    </div>
-    <div class="card">
-     <span class="tag">Prochain temps fort</span>
-     <div class="row" style="margin-top:6px"><div><div style="font-family:'Roboto Slab',serif;font-size:18px">20 h · Révélation du NOVA X</div><div class="small">Grande scène · 300 invités</div></div></div>
-    </div>
-    <div class="quick">
-     <button onclick="go('plan')"><svg viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/></svg>Ma table : 12</button>
-     <button onclick="go('live');setTimeout(function(){document.getElementById('qtxt').focus()},350)"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v4"/></svg>Question au micro</button>
-     <button onclick="go('live')"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Voter</button>
-    </div>
-    <button class="btn" onclick="go('billet')">Mon billet</button>
-    <button class="btn ghost" onclick="go('programme')">Voir le programme</button>
-    <a class="btn ghost" style="text-align:center;text-decoration:none;margin-top:10px" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sofitel+Abidjan+H%C3%B4tel+Ivoire">Itinéraire vers le Sofitel</a>
-   </section>
 
-   <section id="programme">
-    <h2>Programme</h2>
-    <p class="small" style="margin-bottom:14px">Le temps fort en cours est surligné. Touchez « Rappel » pour être prévenu 10 min avant.</p>
-    <div class="prog" id="prog"></div>
-   </section>
+<!-- ============ VITRINE ORDINATEUR ============ -->
+<div class="desk" id="desk">
+ <aside class="pitch">
+  <div class="pitch-top"><span class="logo-n">NOVA <b>X</b></span><span class="live-tag">Live</span></div>
+  <h1>Toute la soirée<br>dans <em>votre main.</em></h1>
+  <p class="pitch-lead">L'application des 300 invités du lancement NOVA X : billet, table, programme qui avance en direct, vote, questions à la scène et photos de la soirée.</p>
+  <ul class="pitch-list">
+   <li><b>Avant</b>Compte à rebours, billet et itinéraire</li>
+   <li><b>Pendant</b>Maintenant et ensuite, vote, questions, mur photo</li>
+   <li><b>En coulisses</b>Régie de l'agence : arrivées, modération, incidents</li>
+  </ul>
+  <div class="pitch-jump" id="jump">
+   <button data-go="accueil">Accueil</button><button data-go="billet">Billet</button><button data-go="table">Ma table</button><button data-go="programme">Programme</button><button data-go="direct">Vote et questions</button><button data-go="photos">Photos</button><button data-go="pratique">Accès et équipe</button>
+  </div>
+  <div class="pitch-actions">
+   <button class="pill-live" id="desk-live"><i></i><span>Simuler le direct</span></button>
+   <button class="pill-ghost" id="desk-regie">Ouvrir la régie</button>
+  </div>
+  <div class="pitch-foot">
+   <div class="qr-mini" id="qr-desk"></div>
+   <p>Scannez pour l'ouvrir<br>sur votre téléphone</p>
+  </div>
+ </aside>
 
-   <section id="billet">
-    <h2>Mon billet</h2>
-    <div class="ticket">
-     <div class="top"><span class="tag">NOVA X · Soirée de lancement</span>
-      <div class="qr" id="qr"></div>
-      <div class="small">Présentez ce code à l'accueil</div></div>
-     <div class="perf"></div>
-     <div class="info">
-      <div><span class="small">Invitée</span><b>Awa Koné</b></div>
-      <div><span class="small">Profil</span><b style="color:var(--or)">Presse</b></div>
-      <div><span class="small">Table</span><b>12</b></div>
-      <div><span class="small">Accès</span><b>19 h</b></div>
-      <div style="grid-column:1/3"><span class="small">Lieu</span><b>Sofitel Abidjan Hôtel Ivoire</b></div>
+ <!-- ============ L'APPLI ============ -->
+ <div class="device" id="device">
+  <div class="notch"></div>
+  <div class="app" id="app">
+
+   <div class="status"><span id="st-time">19:00</span><span class="st-r"><i class="sig"></i><i class="bat"></i></span></div>
+
+   <header class="top" id="top">
+    <button class="top-brand" id="brand" aria-label="Accueil">NOVA <b>X</b><span class="top-live" id="top-live">EN DIRECT</span></button>
+    <div class="top-r">
+     <button class="ico" id="btn-notif" aria-label="Annonces"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="dot-n" id="notif-dot"></span></button>
+     <button class="avatar" id="btn-billet" aria-label="Mon billet"><span id="av-ini">AK</span></button>
+    </div>
+   </header>
+
+   <div class="toast" id="toast"><b id="toast-k">Annonce</b><span id="toast-t"></span></div>
+
+   <main class="screens" id="screens">
+
+    <!-- ACCUEIL -->
+    <section class="scr" id="s-accueil" data-t="Accueil">
+     <div class="hero">
+      <div class="hero-img" style="background-image:url(img/scene-lumiere.jpg)"></div>
+      <div class="hero-shade"></div>
+      <div class="phone-art"><div class="pa-body"><div class="pa-glow"></div><span>NOVA X</span></div></div>
+      <div class="hero-in">
+       <p class="eyebrow" id="h-eyebrow">NOVA Électronique vous invite</p>
+       <h2 class="h-title">Soirée de lancement<br><span>NOVA <em>X</em></span></h2>
+       <p class="h-meta">Jeudi 11 février 2027 · 19 h<br>Sofitel Abidjan Hôtel Ivoire</p>
+      </div>
      </div>
-    </div>
-   </section>
 
-   <section id="plan">
-    <h2>Plan de salle</h2>
-    <div class="card" style="padding:10px">
-    <svg id="map" viewBox="0 0 360 400" font-family="Roboto" font-size="11" text-anchor="middle">
-     <rect x="2" y="2" width="356" height="396" rx="14" fill="#10132a" stroke="#2e3466"/>
-     <g class="zone" data-z="scene"><rect x="90" y="16" width="180" height="56" rx="10" fill="#E8892B"/><text x="180" y="49" fill="#16110a" font-weight="700" font-size="14">SCÈNE</text></g>
-     <g class="zone" data-z="demo1"><rect x="16" y="100" width="70" height="110" rx="10" fill="#3b4590"/><text x="51" y="156" fill="#fff">Essai</text><text x="51" y="170" fill="#fff">1</text></g>
-     <g class="zone" data-z="demo2"><rect x="274" y="100" width="70" height="110" rx="10" fill="#3b4590"/><text x="309" y="156" fill="#fff">Essai</text><text x="309" y="170" fill="#fff">2</text></g>
-     <g class="zone" data-z="tables" id="tables"></g>
-     <g class="zone" data-z="bar"><rect x="16" y="300" width="120" height="44" rx="10" fill="#7a4a9e"/><text x="76" y="326" fill="#fff">Bar</text></g>
-     <g class="zone" data-z="photo"><rect x="224" y="300" width="120" height="44" rx="10" fill="#2a8a7a"/><text x="284" y="326" fill="#fff">Photocall</text></g>
-     <g class="zone" data-z="vest"><rect x="16" y="356" width="120" height="30" rx="8" fill="#555c86"/><text x="76" y="375" fill="#fff">Vestiaire</text></g>
-     <g class="zone" data-z="entree"><rect x="224" y="356" width="120" height="30" rx="8" fill="#262C51" stroke="#E8892B"/><text x="284" y="375" fill="#E8892B">Entrée</text></g>
-    </svg></div>
-    <div class="card" id="zinfo"><span class="tag">Touchez une zone</span><p class="small" style="margin-top:6px">Votre table, la 12, est surlignée en orange.</p></div>
-   </section>
+     <!-- avant -->
+     <div class="wrapc" id="pre">
+      <div class="countdown">
+       <div><b id="cd-d">00</b><small>jours</small></div>
+       <div><b id="cd-h">00</b><small>heures</small></div>
+       <div><b id="cd-m">00</b><small>minutes</small></div>
+       <div><b id="cd-s">00</b><small>secondes</small></div>
+      </div>
+      <button class="sim" id="sim-on"><i></i>Voir l'appli en mode soirée</button>
+     </div>
 
-   <section id="live">
-    <h2>Live</h2>
-    <div class="card">
-     <span class="tag">Sondage en direct</span>
-     <div style="font-family:'Roboto Slab',serif;font-size:17px;margin:6px 0 12px">Quelle couleur pour le NOVA X ?</div>
-     <div id="poll"></div>
-     <div class="small" id="votes"></div>
-    </div>
-    <div class="card" id="questions">
-     <span class="tag">Une question pour la scène</span>
-     <p class="small" style="margin:6px 0 10px">Le modérateur lit les questions les plus soutenues au micro pendant la keynote.</p>
-     <textarea class="q" id="qtxt" maxlength="200" placeholder="Votre question, en une phrase"></textarea>
-     <button class="btn" id="qsend">Envoyer au modérateur</button>
-     <div id="qlist" style="margin-top:12px"></div>
-    </div>
-    <div class="card">
-     <span class="tag">Quiz NOVA X</span>
-     <div id="quiz" style="margin-top:8px"></div>
-    </div>
-   </section>
+     <!-- pendant -->
+     <div class="wrapc" id="live" hidden>
+      <div class="now-card">
+       <div class="now-head"><span class="rec"><i></i>Maintenant</span><span class="clock" id="live-clock">20:12</span></div>
+       <h3 id="now-t">Révélation du NOVA X</h3>
+       <p id="now-d">Sur scène</p>
+       <div class="prog-bar"><i id="now-bar"></i></div>
+       <div class="next"><span>Ensuite <b id="next-h">20 h 25</b></span><strong id="next-t">Questions du public</strong></div>
+      </div>
+      <div class="quick">
+       <button data-go="direct" class="q-vote"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Voter</b><span id="q-vote-s">Couleur préférée</span></button>
+       <button data-go="direct" data-tab="q" class="q-ask"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><b>Poser une question</b><span id="q-ask-s">à la scène</span></button>
+      </div>
+      <button class="sim off" id="sim-off">Revenir au compte à rebours</button>
+     </div>
 
-   <section id="photos">
-    <h2>Mur photo</h2>
-    <div class="grid" id="grid"></div>
-    <input type="file" id="pfile" accept="image/*" hidden>
-    <button class="btn" style="margin-top:14px" onclick="document.getElementById('pfile').click()">Partager ma photo</button>
-    <p class="small" style="text-align:center;margin-top:10px">Vos photos s'affichent aussi sur l'écran du photocall.</p>
-   </section>
-  </main>
-  <nav id="nav"></nav>
-  <div class="toast" id="toast"></div>
+     <div class="wrapc">
+      <button class="ticket-peek" data-go="billet">
+       <div class="tp-l"><span class="k">Mon billet</span><b id="tp-name">Mme Aya Koné</b><span id="tp-code">NOVAX-2027-AK-290245</span></div>
+       <div class="tp-qr" id="qr-peek"></div>
+      </button>
+
+      <div class="tiles">
+       <button class="tile t-table" data-go="table"><span class="k">Ma table</span><b id="tile-table">12</b><span>Voir sur le plan</span></button>
+       <button class="tile t-prog" data-go="programme"><span class="k">Programme</span><b>11</b><span>moments, minute par minute</span></button>
+       <button class="tile t-map" data-go="pratique"><span class="k">Y aller</span><b class="sm">Cocody</b><span>Itinéraire et accès</span></button>
+       <button class="tile t-photo" data-go="photos" style="background-image:linear-gradient(180deg,rgba(7,8,15,.1),rgba(7,8,15,.9)),url(img/gala-salle.jpg)"><span class="k">Mur photo</span><b class="sm" id="tile-ph">12 photos</b><span>Partagez les vôtres</span></button>
+      </div>
+
+      <div class="sec-h"><h4>À votre table</h4><button data-go="table">Tout voir</button></div>
+      <div class="mates" id="mates-peek"></div>
+
+      <div class="dress">
+       <div><span class="k">Tenue</span><b>Tenue de soirée recommandée</b></div>
+       <div><span class="k">Portes</span><b>19 h, scène à 20 h précises</b></div>
+      </div>
+     </div>
+    </section>
+
+    <!-- BILLET -->
+    <section class="scr" id="s-billet" data-t="Billet">
+     <div class="pad">
+      <p class="eyebrow">Billet d'entrée</p>
+      <h2 class="title">Présentez ce code<br>à l'accueil</h2>
+      <div class="pass" id="pass">
+       <div class="pass-top">
+        <span class="logo-n">NOVA <b>X</b></span><span class="pass-k" id="pass-prof">Distributeur</span>
+       </div>
+       <div class="pass-qr"><div id="qr-big"></div><div class="scanline"></div></div>
+       <p class="pass-code" id="pass-code">NOVAX-2027-AK-290245</p>
+       <div class="pass-grid">
+        <div><span>Invité</span><b id="pass-name">Mme Aya Koné</b></div>
+        <div><span>Table</span><b id="pass-table">12</b></div>
+        <div><span>Date</span><b>Jeu. 11 févr. 2027</b></div>
+        <div><span>Portes</span><b>19 h 00</b></div>
+       </div>
+       <div class="pass-cut"></div>
+       <div class="pass-foot"><span>Sofitel Abidjan Hôtel Ivoire</span><span>Une personne par billet</span></div>
+      </div>
+      <p class="hint" id="pass-state"><i class="ok"></i>Billet valide. Montez la luminosité de l'écran pour le scan.</p>
+      <div class="row2">
+       <a class="btn" id="b-ics" href="#" download="nova-x-soiree.ics">Ajouter à l'agenda</a>
+       <a class="btn ghost" id="b-wa" href="#" target="_blank" rel="noopener">Envoyer sur WhatsApp</a>
+      </div>
+      <button class="link" data-go="table">Voir ma table sur le plan</button>
+     </div>
+    </section>
+
+    <!-- TABLE -->
+    <section class="scr" id="s-table" data-t="Ma table">
+     <div class="pad">
+      <p class="eyebrow">Plan de salle</p>
+      <h2 class="title">Table <span id="tb-n">12</span>, <span class="mut" id="tb-zone">côté jardin, 3e rang</span></h2>
+      <div class="plan-wrap"><svg id="plan" viewBox="0 0 360 420" aria-label="Plan de salle"></svg></div>
+      <div class="legend"><span><i class="lg-me"></i>Votre table</span><span><i class="lg-vip"></i>Officiels</span><span><i class="lg-t"></i>Invités</span><span><i class="lg-s"></i>Stands</span></div>
+      <div class="sec-h"><h4>À votre table <small id="mates-n">10 couverts</small></h4></div>
+      <div class="mates-list" id="mates-list"></div>
+      <p class="fine">Placement préparé par l'équipe d'accueil. Un changement ? Écrivez à l'accueil depuis l'onglet Infos.</p>
+     </div>
+    </section>
+
+    <!-- PROGRAMME -->
+    <section class="scr" id="s-programme" data-t="Programme">
+     <div class="pad">
+      <p class="eyebrow">Jeudi 11 février 2027</p>
+      <h2 class="title">Le programme,<br>minute par minute</h2>
+      <div class="chips" id="prog-chips"><button class="on" data-f="all">Tout</button><button data-f="scene">Scène</button><button data-f="table">À table</button><button data-f="libre">Libre</button></div>
+      <ol class="timeline" id="timeline"></ol>
+     </div>
+    </section>
+
+    <!-- DIRECT -->
+    <section class="scr" id="s-direct" data-t="Direct">
+     <div class="pad">
+      <p class="eyebrow"><span class="rec sm"><i></i></span><span id="d-eyebrow">Interactif</span></p>
+      <h2 class="title">Votre voix<br>compte ce soir</h2>
+      <div class="seg" id="seg"><button class="on" data-t="v">Vote</button><button data-t="q">Questions <em id="q-count">5</em></button></div>
+
+      <div id="pane-v">
+       <div class="poll">
+        <div class="poll-h"><span class="k" id="poll-state">Vote ouvert</span><span class="votes" id="poll-total">0 votes</span></div>
+        <h3>Quelle finition pour votre NOVA X ?</h3>
+        <div class="opts" id="opts"></div>
+        <p class="fine" id="poll-note">Résultat sur l'écran géant à 20 h 25. Les pourcentages s'affichent après votre vote.</p>
+       </div>
+       <div class="poll closed">
+        <div class="poll-h"><span class="k">Vote clos</span><span class="votes">214 votes</span></div>
+        <h3>Ce que vous attendez le plus</h3>
+        <div class="opts done" id="opts2"></div>
+       </div>
+      </div>
+
+      <div id="pane-q" hidden>
+       <form class="ask" id="ask">
+        <textarea id="ask-t" maxlength="200" rows="2" placeholder="Votre question à la scène"></textarea>
+        <div class="ask-r"><label class="anon"><input type="checkbox" id="ask-anon"> Anonyme</label><span id="ask-c">0/200</span><button class="btn sm" type="submit">Envoyer</button></div>
+       </form>
+       <div class="q-sort"><button class="on" data-s="top">Les plus soutenues</button><button data-s="new">Les plus récentes</button></div>
+       <ul class="qs" id="qs"></ul>
+      </div>
+     </div>
+    </section>
+
+    <!-- PHOTOS -->
+    <section class="scr" id="s-photos" data-t="Photos">
+     <div class="pad">
+      <p class="eyebrow">Mur photo</p>
+      <h2 class="title">La soirée,<br>vue par vous</h2>
+      <label class="upload"><input type="file" accept="image/*" id="up"><svg viewBox="0 0 24 24"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg><span><b>Ajouter ma photo</b>Elle passe sur l'écran du cocktail après validation</span></label>
+      <div class="masonry" id="wall"></div>
+      <p class="fine center">Photos d'illustration, prises par SN Silverplate Services.</p>
+     </div>
+    </section>
+
+    <!-- PRATIQUE -->
+    <section class="scr" id="s-pratique" data-t="Infos">
+     <div class="pad">
+      <p class="eyebrow">Accès et équipe</p>
+      <h2 class="title">Sofitel Abidjan<br>Hôtel Ivoire</h2>
+      <p class="addr">Boulevard Hassan II, Cocody, Abidjan</p>
+      <div class="map"><iframe id="map" title="Carte" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-4.0155%2C5.3195%2C-3.9955%2C5.3345&amp;layer=mapnik&amp;marker=5.3268%2C-4.0055"></iframe><div class="map-pin">Entrée principale</div></div>
+      <div class="row3">
+       <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=5.3268,-4.0055&amp;destination_place_id=&amp;travelmode=driving">Itinéraire</a>
+       <a class="btn ghost" target="_blank" rel="noopener" href="https://waze.com/ul?ll=5.3268,-4.0055&amp;navigate=yes">Waze</a>
+       <button class="btn ghost" id="b-copy">Copier l'adresse</button>
+      </div>
+      <ul class="steps">
+       <li><b>1</b><div><strong>Arrivée en voiture</strong>Suivez le fléchage NOVA X depuis l'entrée de l'hôtel jusqu'au parvis.</div></li>
+       <li><b>2</b><div><strong>Accueil et vestiaire</strong>Comptoir NOVA X dans le hall : scan du billet, badge, vestiaire.</div></li>
+       <li><b>3</b><div><strong>Cocktail puis salle</strong>Photocall et cocktail, puis appel en salle à 19 h 45.</div></li>
+      </ul>
+
+      <div class="sec-h"><h4>L'équipe sur place</h4></div>
+      <ul class="team" id="team"></ul>
+      <div class="sos"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg><div><b>Besoin d'aide ?</b>Tout membre de l'équipe en tour de cou orange peut vous guider. Secouristes au comptoir d'accueil.</div></div>
+
+      <div class="sec-h"><h4>Questions fréquentes</h4></div>
+      <details class="faq"><summary>Je ne retrouve plus mon billet</summary><p>Donnez votre nom au comptoir : l'équipe retrouve votre billet en quelques secondes.</p></details>
+      <details class="faq"><summary>Puis-je venir accompagné ?</summary><p>L'invitation est nominative. Un accompagnant prévu par l'invitation reçoit son propre billet.</p></details>
+      <details class="faq"><summary>À quelle heure repartir ?</summary><p>La soirée se termine vers 23 h. Un souvenir NOVA X vous est remis à la sortie.</p></details>
+
+      <p class="org"><img src="img/silverplate-blanc.png" alt="SN Silverplate Services"><span>Soirée organisée par<br><b>SN Silverplate Services</b></span></p>
+      <button class="regie-link" id="regie-link" aria-label="Accès régie">Accès équipe</button>
+     </div>
+    </section>
+   </main>
+
+   <!-- barre d'onglets -->
+   <nav class="tabbar" id="tabbar">
+    <span class="tab-ind" id="tab-ind"></span>
+    <button data-go="accueil" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
+    <button data-go="programme"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Programme</button>
+    <button data-go="direct" class="t-live"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M7 7a7 7 0 0 0 0 10M17 7a7 7 0 0 1 0 10M4 4a11 11 0 0 0 0 16M20 4a11 11 0 0 1 0 16"/></svg>Direct</button>
+    <button data-go="photos"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>Photos</button>
+    <button data-go="pratique"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Infos</button>
+   </nav>
+
+   <!-- feuille annonces / chat -->
+   <div class="sheet" id="sheet" hidden>
+    <div class="sheet-bg" data-close></div>
+    <div class="sheet-in">
+     <div class="grab"></div>
+     <div class="sheet-h"><h3 id="sheet-t">Annonces</h3><button class="ico" data-close aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+     <div id="sheet-body"></div>
+    </div>
+   </div>
+  </div>
  </div>
 </div>
-<script>
-var ic={
-accueil:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
-programme:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M7 13h4M7 17h7"/>',
-billet:'<path d="M3 7a2 2 0 012-2h14a2 2 0 012 2v3a2 2 0 000 4v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 000-4z"/><path d="M14 5v14" stroke-dasharray="2 2"/>',
-plan:'<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/>',
-live:'<circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 000 8.4M16.2 7.8a6 6 0 010 8.4M5 5a10 10 0 000 14M19 5a10 10 0 010 14"/>',
-photos:'<rect x="3" y="5" width="18" height="15" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/>'};
-var lab={accueil:'Accueil',programme:'Programme',billet:'Billet',plan:'Plan',live:'Live',photos:'Photos'};
-var nav=document.getElementById('nav');
-Object.keys(lab).forEach(function(k){var b=document.createElement('button');b.id='n-'+k;b.innerHTML='<svg viewBox="0 0 24 24">'+ic[k]+'</svg>'+lab[k];b.onclick=function(){go(k)};nav.appendChild(b)});
-function go(k){document.querySelectorAll('section').forEach(function(s){s.classList.toggle('on',s.id==k)});document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.id=='n-'+k)});document.querySelector('main').scrollTop=0}
-var p=new URLSearchParams(location.search).get('tab');go(lab[p]?p:'accueil');
-function toast(t){var e=document.getElementById('toast');e.textContent=t;e.classList.add('v');setTimeout(function(){e.classList.remove('v')},2200)}
-// compte a rebours
-var T=new Date('2027-02-11T19:00:00Z').getTime();
-function tick(){var d=Math.max(0,T-Date.now())/1000;cj.textContent=Math.floor(d/86400);ch.textContent=Math.floor(d%86400/3600);cm.textContent=Math.floor(d%3600/60);cs.textContent=Math.floor(d%60)}
-tick();setInterval(tick,1000);
-// programme
-var P=[['19 h','Accueil et cocktail','Hall et bar · musique live'],['20 h','Révélation du NOVA X','Grande scène · keynote NOVA Électronique'],['20 h 30','Prise en main','Espaces d\'essai 1 et 2 · testez le NOVA X'],['21 h 30','Dîner et DJ','Tables numérotées · DJ set'],['23 h','Fin de soirée','Vestiaire et navettes']];
-var prog=document.getElementById('prog');
-P.forEach(function(x,i){var now=i==1;var d=document.createElement('div');d.className='it'+(now?' now':'');d.innerHTML='<div class="card"><div class="row"><div><div class="h">'+x[0]+(now?' · <span style="font-family:Roboto;font-size:11px;font-weight:700;letter-spacing:1px">EN COURS</span>':'')+'</div><div class="t">'+x[1]+'</div><div class="small">'+x[2]+'</div></div><button class="rm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg>Rappel</button></div></div>';
-d.querySelector('.rm').onclick=function(){this.classList.toggle('set');toast(this.classList.contains('set')?'Rappel activé 10 min avant ('+x[0]+')':'Rappel retiré')};prog.appendChild(d)});
-// QR
-(function(){var box=document.getElementById('qr'),data='NOVAX-2027-PRESSE-T12-AWA-KONE';
-try{var q=qrcode(0,'M');q.addData(data);q.make();box.innerHTML=q.createSvgTag({cellSize:6,margin:0,scalable:true});return}catch(e){}
-var n=25,s='<svg viewBox="0 0 '+n+' '+n+'" shape-rendering="crispEdges"><rect width="'+n+'" height="'+n+'" fill="#fff"/>',h=7;
-function f(x,y){return'<rect x="'+x+'" y="'+y+'" width="7" height="7" fill="#000"/><rect x="'+(x+1)+'" y="'+(y+1)+'" width="5" height="5" fill="#fff"/><rect x="'+(x+2)+'" y="'+(y+2)+'" width="3" height="3" fill="#000"/>'}
-for(var y=0;y<n;y++)for(var x=0;x<n;x++){if((x<8&&y<8)||(x>n-9&&y<8)||(x<8&&y>n-9))continue;h=(h*1103515245+12345)&0x7fffffff;if(h%2)s+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="#000"/>'}
-box.innerHTML=s+f(0,0)+f(n-7,0)+f(0,n-7)+'</svg>'})();
-// plan
-var tg=document.getElementById('tables'),ts='',k=1;
-for(var r=0;r<3;r++)for(var c=0;c<5;c++){var cx=118+c*31,cy=110+r*55,me=k==12;ts+='<circle cx="'+cx+'" cy="'+cy+'" r="13" fill="'+(me?'#E8892B':'#262C51')+'" stroke="#4a5296"/><text x="'+cx+'" y="'+(cy+4)+'" fill="'+(me?'#16110a':'#cfd3ef')+'" font-size="10" font-weight="700">'+k+'</text>';k++}
-tg.innerHTML=ts;
-var Z={scene:['Scène','Révélation du NOVA X à 20 h. Espace presse réservé au premier rang, côté gauche.'],demo1:['Espace d\'essai 1','Photo et vidéo : testez le capteur du NOVA X. Ouverte dès 20 h 30.'],demo2:['Espace d\'essai 2','Autonomie et charge rapide. Hôtesses NOVA sur place.'],tables:['Tables 1 à 15','Dîner à 21 h 30. Votre place : table 12, troisième rangée.'],bar:['Bar','Cocktails et softs dès 19 h, toute la soirée.'],photo:['Photocall','Mur NOVA X : vos photos arrivent sur le Mur photo de l\'appli.'],vest:['Vestiaire','Ouvert de 18 h 45 à 23 h 30. Ticket remis à l\'accueil.'],entree:['Entrée','Accueil et contrôle des billets à partir de 18 h 45.']};
-document.querySelectorAll('.zone').forEach(function(g){g.onclick=function(){document.querySelectorAll('.zone').forEach(function(x){x.classList.remove('sel')});g.classList.add('sel');var z=Z[g.dataset.z];zinfo.innerHTML='<span class="tag">'+z[0]+'</span><p style="margin-top:6px;line-height:1.45">'+z[1]+'</p>'}});
-// sondage
-var C=[['Noir sidéral','#111'],['Or Abidjan','#E8892B'],['Bleu lagune','#2f6fd6'],['Blanc perle','#eee']],V=[84,121,67,39],mine=-1;
-function draw(){var t=V.reduce(function(a,b){return a+b},0),h='';C.forEach(function(c,i){var pc=Math.round(V[i]*100/t);h+='<div class="opt'+(i==mine?' me':'')+'" data-i="'+i+'"><div class="bar" style="width:'+pc+'%"></div><div class="l"><span><i class="dot" style="background:'+c[1]+'"></i>'+c[0]+'</span><b>'+pc+' %</b></div></div>'});poll.innerHTML=h;votes.textContent=t+' votes'+(mine<0?' · touchez une couleur pour voter':' · merci pour votre vote');
-poll.querySelectorAll('.opt').forEach(function(o){o.onclick=function(){if(mine>=0)return;mine=+o.dataset.i;V[mine]++;draw();toast('Vote enregistré : '+C[mine][0])}})}
-draw();
-setInterval(function(){V[Math.floor(Math.random()*4)]+=1+Math.floor(Math.random()*3);var t=V.reduce(function(a,b){return a+b},0);poll.querySelectorAll('.opt').forEach(function(o,i){o.querySelector('.bar').style.width=Math.round(V[i]*100/t)+'%';o.querySelector('b').textContent=Math.round(V[i]*100/t)+' %'});votes.textContent=t+' votes'+(mine<0?' · touchez une couleur pour voter':' · merci pour votre vote')},2500);
-// quiz
-var Q=[['Quelle est la promesse du NOVA X ?',['La photo de nuit','Un clavier physique','Une antenne radio'],0],['Où a lieu la soirée ?',['Palais de la Culture','Sofitel Hôtel Ivoire','Stade Félix Houphouët-Boigny'],1],['À quelle heure le NOVA X est-il révélé ?',['19 h','20 h','22 h'],1]],qi=0,sc=0;
-function quiz(){if(qi>=Q.length){document.getElementById('quiz').innerHTML='<div style="font-family:Roboto Slab;font-size:20px">Score : '+sc+' / 3</div><p class="small" style="margin:6px 0 10px">Les meilleurs scores sont annoncés sur scène à 21 h.</p><button class="btn ghost" onclick="qi=0;sc=0;quiz()">Rejouer</button>';return}
-var q=Q[qi],h='<div class="small">Question '+(qi+1)+' / 3</div><div style="font-weight:700;margin:6px 0 10px">'+q[0]+'</div>';q[1].forEach(function(a,i){h+='<button class="qopt" data-i="'+i+'">'+a+'</button>'});var el=document.getElementById('quiz');el.innerHTML=h;
-el.querySelectorAll('.qopt').forEach(function(b){b.onclick=function(){var i=+b.dataset.i;el.querySelectorAll('.qopt').forEach(function(x){x.onclick=null});if(i==q[2]){b.classList.add('ok');sc++}else{b.classList.add('ko');el.querySelectorAll('.qopt')[q[2]].classList.add('ok')}setTimeout(function(){qi++;quiz()},1100)}})}
-quiz();
-// photos
-var G=[['linear-gradient(135deg,#E8892B,#7a2f8f)','Révélation'],['linear-gradient(160deg,#262C51,#2f6fd6)','Photocall'],['radial-gradient(circle at 30% 30%,#ffd28a,#b4521a)','Cocktail'],['linear-gradient(200deg,#0f5e57,#262C51)','Essai 1'],['linear-gradient(45deg,#3b1d5e,#E8892B)','DJ set'],['radial-gradient(circle at 70% 40%,#5d7dff,#0B0D17)','Scène'],['linear-gradient(120deg,#b4521a,#262C51)','Table 12'],['linear-gradient(160deg,#2a8a7a,#E8892B)','Équipe NOVA']];
-var G2=[['scene','Révélation'],['photocall','Photocall'],['entree','Accueil'],['tables','Dîner'],['ecran','Grande scène'],['ensemble','La salle']];
-grid.innerHTML=G2.map(function(g){return'<div class="ph" style="background-image:url(img/'+g[0]+'.jpg)"><span>'+g[1]+'</span></div>'}).join('');
-document.getElementById('pfile').onchange=function(){var f=this.files[0];if(!f)return;var u=URL.createObjectURL(f);var d=document.createElement('div');d.className='ph';d.style.backgroundImage='url('+u+')';d.innerHTML='<span>Ma photo</span>';grid.insertBefore(d,grid.firstChild);toast('Photo ajoutée au mur');this.value=''};
-// questions au micro
-var QS=[['Quelle autonomie réelle en vidéo 4K ?',23],['Le NOVA X sera-t-il disponible en Côte d\'Ivoire dès le lancement ?',17]],liked={};
-function qdraw(){QS.sort(function(a,b){return b[1]-a[1]});qlist.innerHTML='<div class="small" style="margin-bottom:4px">Questions de la salle</div>'+QS.map(function(q,i){return'<div class="qq"><div><p>'+q[0].replace(/</g,'&lt;')+'</p>'+(q[2]?'<div class="small" style="color:var(--or)">Votre question · transmise au modérateur</div>':'')+'</div><button class="like'+(liked[q[0]]?' on':'')+'" data-i="'+i+'">▲ '+q[1]+'</button></div>'}).join('');
-qlist.querySelectorAll('.like').forEach(function(b){b.onclick=function(){var q=QS[+b.dataset.i];if(liked[q[0]])return;liked[q[0]]=1;q[1]++;qdraw()}})}
-qdraw();
-qsend.onclick=function(){var t=qtxt.value.trim();if(t.length<5){toast('Écrivez votre question');qtxt.focus();return}QS.push([t,1,true]);liked[t]=1;qtxt.value='';qdraw();toast('Question envoyée au modérateur')};
-if('serviceWorker'in navigator){}
-</script>
+
+<!-- ============ RÉGIE ============ -->
+<div class="regie" id="regie" hidden>
+ <header class="rg-top">
+  <div class="rg-brand"><span class="logo-n">NOVA <b>X</b></span><span class="rg-k">Régie</span><span class="rg-clock" id="rg-clock">19:00</span><span class="rg-live" id="rg-live"><i></i>Soirée simulée</span></div>
+  <div class="rg-act"><button class="pill-ghost" id="rg-sim">Lancer la simulation</button><button class="pill-ghost" id="rg-next">Séquence suivante</button><button class="pill-o" id="rg-back">Vue invité</button></div>
+ </header>
+ <div class="rg-grid">
+  <section class="rg-card rg-kpis">
+   <div class="kpi big"><span>Invités arrivés</span><b><em id="k-arr">0</em><small>/ 300</small></b><div class="gauge"><i id="k-gauge"></i></div><p id="k-rate">0 entrées sur les 5 dernières minutes</p></div>
+   <div class="kpi"><span>Séquence</span><b class="t" id="k-seq">Accueil et cocktail</b><p id="k-seq-n">Ensuite : appel en salle</p></div>
+   <div class="kpi"><span>Questions à modérer</span><b><em id="k-mod">0</em></b><p>sur <span id="k-qt">0</span> reçues</p></div>
+   <div class="kpi"><span>Incidents ouverts</span><b><em id="k-inc">0</em></b><p id="k-inc-p">aucun en cours</p></div>
+  </section>
+
+  <section class="rg-card rg-arr">
+   <div class="rg-h"><h3>Arrivées en temps réel</h3><form id="scan" class="scan"><input id="scan-in" placeholder="Scanner ou saisir un code" autocomplete="off"><button class="pill-o">Valider</button></form></div>
+   <div class="chart"><span class="chart-cap">Jauge : 300 places</span><span class="chart-dot" id="chart-dot"></span><svg id="chart" viewBox="0 0 600 150" preserveAspectRatio="none"></svg><div class="chart-x"><span>19 h</span><span>19 h 30</span><span>20 h</span><span>20 h 30</span></div></div>
+   <div class="rg-split">
+    <div><h4>Par profil</h4><ul class="bars" id="by-prof"></ul></div>
+    <div><h4>Dernières entrées</h4><ul class="feed" id="feed"></ul></div>
+   </div>
+  </section>
+
+  <section class="rg-card rg-mod">
+   <div class="rg-h"><h3>Questions à modérer</h3><span class="rg-sub">Visibles par les invités une fois validées</span></div>
+   <ul class="modq" id="modq"></ul>
+  </section>
+
+  <section class="rg-card rg-inc">
+   <div class="rg-h"><h3>Incidents</h3><button class="pill-ghost sm" id="inc-add">Signaler</button></div>
+   <form class="inc-form" id="inc-form" hidden>
+    <input id="inc-t" placeholder="Que se passe-t-il ?" required>
+    <select id="inc-z"><option>Accueil</option><option>Salle</option><option>Scène</option><option>Cuisine</option><option>Parking</option></select>
+    <select id="inc-g"><option value="3">Urgent</option><option value="2" selected>À traiter</option><option value="1">À suivre</option></select>
+    <button class="pill-o">Ajouter</button>
+   </form>
+   <ul class="incs" id="incs"></ul>
+  </section>
+
+  <section class="rg-card rg-push">
+   <div class="rg-h"><h3>Annonce à tous les invités</h3></div>
+   <form id="push" class="push"><input id="push-t" maxlength="120" placeholder="Ex. : appel en salle dans 5 minutes" required><button class="pill-o">Envoyer</button></form>
+   <div class="presets" id="presets"><button>Appel en salle dans 5 minutes</button><button>Le vote est ouvert, à vos téléphones</button><button>Le dîner est servi, rejoignez votre table</button></div>
+   <p class="rg-sub" id="push-log">L'annonce s'affiche en bandeau dans l'appli des invités.</p>
+  </section>
+ </div>
+</div>
+
+<script src="qrcode.min.js"></script>
+<script src="data.js?v=31"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>
