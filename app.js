@@ -28,7 +28,7 @@ var P=[
  [20*60+8,'Révélation du NOVA X','Le produit dévoilé sur scène et sur l\'écran géant.','Scène','scene',12],
  [20*60+20,'Vote en direct','Choisissez votre finition préférée depuis l\'appli.','Scène','scene',5],
  [20*60+25,'Questions à la scène','Les questions les plus soutenues sont posées en direct.','Scène','scene',5],
- [20*60+30,'Démonstrations sur les stands','Prise en main du NOVA X avec les équipes NOVA.','Stands','libre',60],
+ [20*60+30,'Prise en main sur les stands','Prise en main du NOVA X avec les équipes NOVA.','Stands','libre',60],
  [21*60+30,'Dîner assis','Service à table. Régime particulier : signalez-le au serveur.','Salle','table',60],
  [22*60+30,'DJ et piste de danse','Le plateau se transforme en piste.','Salle','libre',30],
  [23*60,'Fin de soirée','Un souvenir NOVA X vous est remis à la sortie.','Hall','libre',30]
@@ -57,7 +57,7 @@ function render(){
   $('#now-t').textContent=c[1]; $('#now-d').textContent=c[3]+' : '+c[2];
   var end=n?n[0]:c[0]+c[5]; $('#now-bar').style.width=Math.min(100,(T-c[0])/(end-c[0])*100)+'%';
   $('#next-h').textContent=n?hFr(n[0]):'23 h 30'; $('#next-t').textContent=n?n[1]:'Bon retour';
-  $('#k-seq').textContent=c[1]; $('#k-seq-n').textContent=n?'Ensuite à '+hFr(n[0])+' : '+n[1].toLowerCase():'Dernière séquence';
+  $('#k-seq').textContent=c[1]; $('#k-seq-n').textContent=n?'Ensuite à '+hFr(n[0])+' : '+n[1]:'Dernière séquence';
  }
  timeline(); arrivals();
 }
@@ -114,7 +114,7 @@ function markMeIn(){ $('#pass').classList.add('used'); $('#pass-state').innerHTM
 function zone(n){var c=(n-1)%5,r=Math.floor((n-1)/5)+1;return (c<2?'côté jardin':c>2?'côté cour':'au centre')+', '+(r===1?'1er':r+'e')+' rang'}
 $('#tb-zone').textContent=zone(ME.t);
 function mates(){
- $('#mates-peek').innerHTML=myTable.filter(function(g){return !g.me}).map(function(g){return '<div class="mate"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><b>'+g.n.replace(/^(M\.|Mme)\s+/,'')+'</b><span>'+prof(g.p)+'</span></div>'}).join('');
+ $('#mates-peek').innerHTML=myTable.filter(function(g){return !g.me}).map(function(g){return '<div class="mate"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><b>'+g.n.replace(/^(M\.|Mme)\s+/,'').split(' ')[0]+'</b><span>'+prof(g.p)+'</span></div>'}).join('');
  $('#mates-list').innerHTML=myTable.map(function(g){return '<li class="mrow'+(g.me?' me':'')+'"><i style="'+avStyle(g.p)+'">'+ini(g.n)+'</i><div><b>'+g.n+(g.me?' (vous)':'')+'</b><span>'+prof(g.p)+'</span></div>'+(g.vip?'<span class="tag">Officiel</span>':'')+'</li>'}).join('');
  $('#mates-n').textContent=myTable.length+' couverts';
 }
@@ -176,12 +176,12 @@ function animClosed(){$$('#opts2 .fill').forEach(function(f){f.style.width='0';s
 
 /* ---------- questions ---------- */
 var Q=store('qs')||[
- {id:1,t:'Quel est le prix de lancement en Côte d\'Ivoire, et chez quels revendeurs ?',a:'Mme Grâce Aka',v:38,s:'pin',m:12},
- {id:2,t:'Le NOVA X sera-t-il disponible en paiement échelonné pour les commerçants ?',a:'M. Aristide Fofana',v:27,s:'ok',m:9},
+ {id:1,t:'Quel est le prix de lancement en Côte d\'Ivoire, et chez quels revendeurs ?',a:'Grâce',v:38,s:'pin',m:12},
+ {id:2,t:'Le NOVA X sera-t-il disponible en paiement échelonné pour les commerçants ?',a:'Aristide',v:27,s:'ok',m:9},
  {id:3,t:'Combien de temps tient la batterie en usage normal ?',a:'Anonyme',v:22,s:'ans',m:6},
- {id:4,t:'Y aura-t-il un service après-vente à Bouaké et San-Pédro ?',a:'Mme Salimata Dosso',v:15,s:'ok',m:4},
- {id:5,t:'Quelle garantie pour les revendeurs agréés ?',a:'M. Hervé Kouamé',v:9,s:'ok',m:2},
- {id:6,t:'Peut-on précommander dès ce soir sur les stands ?',a:'M. Junior Amani',v:0,s:'wait',m:1},
+ {id:4,t:'Y aura-t-il un service après-vente à Bouaké et San-Pédro ?',a:'Salimata',v:15,s:'ok',m:4},
+ {id:5,t:'Quelle garantie pour les revendeurs agréés ?',a:'Hervé',v:9,s:'ok',m:2},
+ {id:6,t:'Peut-on précommander dès ce soir sur les stands ?',a:'Junior',v:0,s:'wait',m:1},
  {id:7,t:'Le chargeur rapide est-il fourni dans la boîte ?',a:'Anonyme',v:0,s:'wait',m:0}
 ];
 var upd=store('ups')||{}; var qsort='top', qid=100;
@@ -206,7 +206,7 @@ $$('#seg button').forEach(function(b){b.onclick=function(){seg(b.dataset.t)}});
 drawQ();
 
 /* ---------- photos ---------- */
-var PH=[['gala-salle','tall','Mme Grâce Aka',48],['scene-lumiere','sq','M. Ibrahim Gnagne',61],['invites','tall','Mme Inès Soro',27],['tables','sq','Équipe NOVA',33],['public','sq','M. Junior Konan',19],['scene-feux','tall','Mme Affoué Séka',42],['cocktail','sq','M. Patrick Gnagne',15],['salle-rouge','tall','Mme Laetitia Diabaté',22],['diner','sq','M. Eric Kouadio',11],['revelation','sq','NOVA Électronique',87]];
+var PH=[['gala-salle','tall','Grâce',48],['scene-lumiere','sq','Ibrahim',61],['invites','tall','Inès',27],['tables','sq','Équipe NOVA',33],['public','sq','Junior',19],['scene-feux','tall','Affoué',42],['cocktail','sq','Patrick',15],['salle-rouge','tall','Laetitia',22],['diner','sq','Éric',11],['revelation','sq','NOVA Électronique',87]];
 var likes=store('likes')||{};
 function drawWall(extra){
  var h=(extra||[]).map(function(src){return '<figure class="ph new"><img src="'+src+'" alt="Votre photo"><span class="who">Vous, en validation</span></figure>'}).join('');

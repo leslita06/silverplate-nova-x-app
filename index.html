@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css?v=34">
+<link rel="stylesheet" href="app.css?v=35">
 </head>
 <body>
 
@@ -64,9 +64,9 @@
     <!-- ACCUEIL -->
     <section class="scr" id="s-accueil" data-t="Accueil">
      <div class="hero">
-      <div class="hero-img" style="background-image:url(img/scene-lumiere.jpg)"></div>
+      <div class="hero-img beams" style="background-image:url(img/hero-faisceaux.jpg?v=35)"></div>
       <div class="hero-shade"></div>
-      <div class="phone-art"><div class="pa-body"><div class="pa-glow"></div><span>NOVA X</span></div></div>
+      <figure class="prod"><span class="prod-halo"></span><img src="img/nova-x-paire.webp?v=35" alt="Le smartphone NOVA X, face et dos" width="1200" height="1333" fetchpriority="high"></figure>
       <div class="hero-in">
        <p class="eyebrow" id="h-eyebrow">NOVA Électronique vous invite</p>
        <h2 class="h-title">Soirée de lancement<br><span>NOVA <em>X</em></span></h2>
@@ -253,6 +253,7 @@
    </main>
 
    <!-- barre d'onglets -->
+   <div class="app-fade" aria-hidden="true"></div>
    <nav class="tabbar" id="tabbar">
     <span class="tab-ind" id="tab-ind"></span>
     <button data-go="accueil" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Accueil</button>
@@ -324,7 +325,7 @@
 </div>
 
 <script src="qrcode.min.js"></script>
-<script src="data.js?v=34"></script>
-<script src="app.js?v=34"></script>
+<script src="data.js?v=35"></script>
+<script src="app.js?v=35"></script>
 </body>
 </html>
